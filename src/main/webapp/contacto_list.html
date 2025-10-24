@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Contactos</title>
+</head>
+<body>
+<h1>Contactos</h1>
+
+<form th:action="@{/contacts}" method="get">
+    <input type="text" name="q" placeholder="Buscar por nombre" th:value="${filtro}" />
+    <button type="submit">Buscar</button>
+    <a th:href="@{/contacts}">Limpiar</a>
+</form>
+
+<p th:if="${mensaje}" th:text="${mensaje}"></p>
+
+<table border="1" th:if="${contactos != null}">
+    <thead>
+        <tr><th>Nombre</th><th>Correo</th><th>Teléfono</th></tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${contactos}">
+            <td th:text="${c.nombre}">Nombre</td>
+            <td th:text="${c.correo}">Correo</td>
+            <td th:text="${c.telefono}">Telefono</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(contactos)}">
+            <td colspan="3">No hay contactos</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><a th:href="@{/contact/new}">Agregar nuevo contacto</a></p>
+</body>
+</html>
